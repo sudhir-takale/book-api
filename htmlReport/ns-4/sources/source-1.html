@@ -1,0 +1,184 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > BookService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.amaap.book.service</a>
+</div>
+
+<h1>Coverage Summary for Class: BookService (com.amaap.book.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.amaap.book.service;
+&nbsp;
+&nbsp;import com.amaap.book.entity.Book;
+&nbsp;import com.amaap.book.repository.BookRepository;
+&nbsp;import com.amaap.book.service.exception.BookNotFoundException;
+&nbsp;import com.amaap.book.service.exception.InvalidBookException;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@Service
+<b class="nc">&nbsp;public class BookService {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    BookRepository bookRepository;
+&nbsp;
+&nbsp;
+&nbsp;    public Book createBook(Book book) {
+&nbsp;
+<b class="nc">&nbsp;        return bookRepository.save(book);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Book&gt; getBooks() {
+&nbsp;
+<b class="nc">&nbsp;        return bookRepository.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Book getBook(String name) throws BookNotFoundException {
+<b class="nc">&nbsp;        Optional&lt;Book&gt; book = bookRepository.findById(name);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (book.isPresent()) {</b>
+<b class="nc">&nbsp;            return book.get();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new BookNotFoundException(&quot;Book not found with name: &quot; + name);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public int removeBook(String name) throws BookNotFoundException {
+<b class="nc">&nbsp;        Optional&lt;Book&gt; bookOptional = bookRepository.findById(name);</b>
+<b class="nc">&nbsp;        if (bookOptional.isPresent()) {</b>
+<b class="nc">&nbsp;            bookRepository.deleteById(name);</b>
+<b class="nc">&nbsp;            return 1;</b>
+&nbsp;        } else {
+&nbsp;
+<b class="nc">&nbsp;            throw new BookNotFoundException(&quot;Book not found with &quot; + name);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public Book update(String name, String publisher) throws InvalidBookException, BookNotFoundException {
+<b class="nc">&nbsp;        Optional&lt;Book&gt; existingBook = bookRepository.findById(name);</b>
+<b class="nc">&nbsp;        if (publisher.isEmpty()) {</b>
+<b class="nc">&nbsp;            throw new InvalidBookException(&quot;Invalid publisher for book &quot; + name);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (existingBook.isEmpty()) {</b>
+<b class="nc">&nbsp;            throw new BookNotFoundException(&quot;Book with name &quot; + name + &quot; not found&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        existingBook</b>
+<b class="nc">&nbsp;                .get()</b>
+<b class="nc">&nbsp;                .setPublisher(publisher);</b>
+<b class="nc">&nbsp;        bookRepository.save(existingBook.get());</b>
+<b class="nc">&nbsp;        return existingBook.get();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-05-13 22:54</div>
+</div>
+</body>
+</html>
