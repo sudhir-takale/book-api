@@ -41,3 +41,16 @@
 #### Repository
 
 - BookRepository extends MongooseRepository<String, Book> 
+
+### How to run application 
+- Run the main application i.e BookApplication file
+- to create a new book
+  - localhost:8080/api/v1/book
+- to get all books
+  - localhost:8080/api/v1/books
+- to get book by name
+  - localhost:8080/api/v1/book/<book-name>
+- to delete a book
+  - localhost:8080/api/v1/book/delete/<book-name>
+- to update book
+  - localhost:8080/api/v1/book/update/<book-name>
