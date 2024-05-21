@@ -16,6 +16,8 @@ public class BookService {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    AuditService auditService;
 
     public Book createBook(Book book) {
 
@@ -31,6 +33,7 @@ public class BookService {
         Optional<Book> book = bookRepository.findById(name);
 
         if (book.isPresent()) {
+            auditService.auditLog(book.get(), name, "Read");
             return book.get();
         } else {
             throw new BookNotFoundException("Book not found with name: " + name);
@@ -41,6 +44,7 @@ public class BookService {
         Optional<Book> bookOptional = bookRepository.findById(name);
         if (bookOptional.isPresent()) {
             bookRepository.deleteById(name);
+
             return 1;
         } else {
 
